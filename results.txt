@@ -1,4 +1,4 @@
-### LR variables
+### LR variables, RecoVertex
 
 --- Factory                  : Evaluation results ranked by best signal efficiency and purity (area)
 --- Factory                  : --------------------------------------------------------------------------------
@@ -10,7 +10,7 @@
 --- Factory                  : Fisher         : 0.243(01)  0.611(02)  0.815(01)    0.843    | 0.348    0.910
 
 
-### NN variables
+### NN variables, RecoVertex
 
 --- Factory                  : Evaluation results ranked by best signal efficiency and purity (area)
 --- Factory                  : --------------------------------------------------------------------------------
@@ -21,7 +21,7 @@
 --- Factory                  : BDT_ADA        : 0.356(02)  0.697(02)  0.865(01)    0.881    | 0.450    1.225
 --- Factory                  : Fisher         : 0.268(02)  0.625(02)  0.815(01)    0.845    | 0.361    0.936
 
-### Own variables
+### Own variables, RecoVertex
 
 --- Factory                  : MVA              Signal efficiency at bkg eff.(error):       | Sepa-    Signifi- 
 --- Factory                  : Method:          @B=0.01    @B=0.10    @B=0.30    ROC-integ. | ration:  cance:   

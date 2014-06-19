@@ -3,10 +3,19 @@ import numpy
 import ROOT
 TMVA_tools = ROOT.TMVA.Tools.Instance()
 
-tree = ROOT.TChain('CombinedSVV2RecoVertex')
-files = ['data/skimmed_20k_eachptetabin_CombinedSVV2RecoVertex_B.root',
-         'data/skimmed_20k_eachptetabin_CombinedSVV2RecoVertex_C.root',
-         'data/skimmed_20k_eachptetabin_CombinedSVV2RecoVertex_DUSG.root']
+# mode = 'NoVertex'
+mode = 'PseudoVertex'
+# mode = 'RecoVertex'
+
+tree = ROOT.TChain('CombinedSVV2{mode}'.format(mode=mode))
+
+files = []
+files = [
+    'data/skimmed_20k_eachptetabin_CombinedSVV2{mode}_B.root'.format(mode=mode),
+    'data/skimmed_20k_eachptetabin_CombinedSVV2{mode}_C.root'.format(mode=mode),
+    'data/skimmed_20k_eachptetabin_CombinedSVV2{mode}_DUSG.root'.format(mode=mode)
+]
+
 for f in files:
     print 'Opening file', f
     tree.Add(f)
@@ -14,27 +23,40 @@ for f in files:
 
 # LR training variables
 training_vars = [
-    'vertexMass', 
-    'vertexNTracks', 
-    'vertexEnergyRatio', 
-    'flightDistance2dSig', 
-    'trackSip2dSigAboveCharm',
-    'vertexJetDeltaR',
-    'trackEtaRel[0]',
-    'trackEtaRel[1]',
     'trackSip3dSig[0]',
     'trackSip3dSig[1]',
     'trackSip3dSig[2]',
-    'trackSip3dSig[3]',
-    'trackSip3dSig[4]']
+    'Alt$(trackSip3dSig[3], -10.)',
+    'Alt$(trackSip3dSig[4], -10.)'
+    ]
+
+if mode == 'PseudoVertex':
+    training_vars += [
+    'trackEtaRel[0]',
+    'trackEtaRel[1]',
+    'vertexMass', 
+    'vertexNTracks', 
+    'vertexEnergyRatio', 
+    'trackSip2dSigAboveCharm',
+    'vertexJetDeltaR',
+    ]
+
+if mode == 'RecoVertex':
+    training_vars += [
+    'flightDistance2dSig'
+    ]
 
 # Additional NN training variables
 training_vars += [
     'jetPt',
     'abs(jetEta)',
     'jetNTracks',
+    ]
+
+if mode == 'RecoVertex':
+    training_vars += [
     'jetNSecondaryVertices'
-]
+    ]
 
 # My random selection for testing
 training_vars += [
@@ -44,14 +66,17 @@ training_vars += [
     'log10(trackPPar[0])',
     'log10(trackPPar[1])',
     'log10(trackPPar[2])',
-    'log10(flightDistance2dVal)', 
-    'log10(flightDistance3dVal)',
-    'log10(vertexFitProb)',
     'muonEnergyFraction',
     'muonMultiplicity',
     'electronEnergyFraction',
     'electronMultiplicity',
-]
+    ]
+if mode == 'RecoVertex':
+    training_vars += [
+    'log10(flightDistance2dVal)', 
+    'log10(flightDistance3dVal)',
+    'log10(vertexFitProb)',
+    ]
 
 
 def train():
@@ -84,10 +109,10 @@ def train():
                                         "nTrain_Signal=0:nTest_Background=0:SplitMode=Random:NormMode=NumEvents:!V" )
 
 
-    # factory.BookMethod(ROOT.TMVA.Types.kBDT, "BDTG","!H:!V:NTrees=500::BoostType=Grad:Shrinkage=0.05:UseBaggedBoost:GradBaggingFraction=0.9:nCuts=500:MaxDepth=4:MinNodeSize=0.1" )
+    factory.BookMethod(ROOT.TMVA.Types.kBDT, "BDTG","!H:!V:NTrees=500::BoostType=Grad:Shrinkage=0.05:UseBaggedBoost:GradBaggingFraction=0.9:nCuts=500:MaxDepth=5:MinNodeSize=0.1" )
 
 
-    # factory.BookMethod(ROOT.TMVA.Types.kBDT, "BDT_ADA", "!H:!V:NTrees=400:BoostType=AdaBoost:SeparationType=GiniIndex:nCuts=50:AdaBoostBeta=0.2:MaxDepth=2:MinNodeSize=6")
+    factory.BookMethod(ROOT.TMVA.Types.kBDT, "BDT_ADA", "!H:!V:NTrees=400:BoostType=AdaBoost:SeparationType=GiniIndex:nCuts=50:AdaBoostBeta=0.2:MaxDepth=5:MinNodeSize=0.1")
 
     factory.BookMethod( ROOT.TMVA.Types.kFisher, "Fisher", "H:!V:Fisher:CreateMVAPdfs:PDFInterpolMVAPdf=Spline2:NbinsMVAPdf=50:NsmoothMVAPdf=10" )
 
