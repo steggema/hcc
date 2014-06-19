@@ -1,0 +1,32 @@
+### LR variables
+
+--- Factory                  : Evaluation results ranked by best signal efficiency and purity (area)
+--- Factory                  : --------------------------------------------------------------------------------
+--- Factory                  : MVA              Signal efficiency at bkg eff.(error):       | Sepa-    Signifi- 
+--- Factory                  : Method:          @B=0.01    @B=0.10    @B=0.30    ROC-integ. | ration:  cance:   
+--- Factory                  : --------------------------------------------------------------------------------
+--- Factory                  : BDTG           : 0.367(02)  0.701(02)  0.865(01)    0.882    | 0.457    1.289
+--- Factory                  : BDT_ADA        : 0.322(02)  0.675(02)  0.860(01)    0.874    | 0.432    1.175
+--- Factory                  : Fisher         : 0.243(01)  0.611(02)  0.815(01)    0.843    | 0.348    0.910
+
+
+### NN variables
+
+--- Factory                  : Evaluation results ranked by best signal efficiency and purity (area)
+--- Factory                  : --------------------------------------------------------------------------------
+--- Factory                  : MVA              Signal efficiency at bkg eff.(error):       | Sepa-    Signifi- 
+--- Factory                  : Method:          @B=0.01    @B=0.10    @B=0.30    ROC-integ. | ration:  cance:   
+--- Factory                  : --------------------------------------------------------------------------------
+--- Factory                  : BDTG           : 0.395(02)  0.716(02)  0.873(01)    0.889    | 0.472    1.330
+--- Factory                  : BDT_ADA        : 0.356(02)  0.697(02)  0.865(01)    0.881    | 0.450    1.225
+--- Factory                  : Fisher         : 0.268(02)  0.625(02)  0.815(01)    0.845    | 0.361    0.936
+
+### Own variables
+
+--- Factory                  : MVA              Signal efficiency at bkg eff.(error):       | Sepa-    Signifi- 
+--- Factory                  : Method:          @B=0.01    @B=0.10    @B=0.30    ROC-integ. | ration:  cance:   
+--- Factory                  : --------------------------------------------------------------------------------
+--- Factory                  : BDTG           : 0.451(02)  0.747(01)  0.893(01)    0.904    | 0.510    1.438
+--- Factory                  : BDT_ADA        : 0.367(02)  0.712(02)  0.878(01)    0.889    | 0.469    1.267
+--- Factory                  : Fisher         : 0.309(02)  0.660(02)  0.842(01)    0.862    | 0.402    1.044
+
