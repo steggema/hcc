@@ -84,10 +84,10 @@ def train():
                                         "nTrain_Signal=0:nTest_Background=0:SplitMode=Random:NormMode=NumEvents:!V" )
 
 
-    factory.BookMethod(ROOT.TMVA.Types.kBDT, "BDTG","!H:!V:NTrees=500::BoostType=Grad:Shrinkage=0.05:UseBaggedBoost:GradBaggingFraction=0.9:nCuts=500:MaxDepth=4:MinNodeSize=0.1" )
+    # factory.BookMethod(ROOT.TMVA.Types.kBDT, "BDTG","!H:!V:NTrees=500::BoostType=Grad:Shrinkage=0.05:UseBaggedBoost:GradBaggingFraction=0.9:nCuts=500:MaxDepth=4:MinNodeSize=0.1" )
 
 
-    factory.BookMethod(ROOT.TMVA.Types.kBDT, "BDT_ADA", "!H:!V:NTrees=400:BoostType=AdaBoost:SeparationType=GiniIndex:nCuts=50:AdaBoostBeta=0.2:MaxDepth=2:MinNodeSize=6")
+    # factory.BookMethod(ROOT.TMVA.Types.kBDT, "BDT_ADA", "!H:!V:NTrees=400:BoostType=AdaBoost:SeparationType=GiniIndex:nCuts=50:AdaBoostBeta=0.2:MaxDepth=2:MinNodeSize=6")
 
     factory.BookMethod( ROOT.TMVA.Types.kFisher, "Fisher", "H:!V:Fisher:CreateMVAPdfs:PDFInterpolMVAPdf=Spline2:NbinsMVAPdf=50:NsmoothMVAPdf=10" )
 
@@ -102,7 +102,9 @@ def train():
 
     outFile.Close()
 
-    # ROOT.TMVAGui('TMVA_classification.root')
+    ROOT.gROOT.LoadMacro('$ROOTSYS/tmva/test/TMVAGui.C')
+    ROOT.TMVAGui('TMVA_classification.root')
+    raw_input("Press Enter to continue...")
 
 def trainMultiClass():
     classes = [
@@ -150,8 +152,9 @@ def trainMultiClass():
 
     outFile.Close()
 
-    # ROOT.TMVAMultiClassGui('TMVA_multiclass.root')
-
+    ROOT.gROOT.LoadMacro('$ROOTSYS/tmva/test/TMVAMultiClassGui.C')
+    ROOT.TMVAMultiClassGui('TMVA_multiclass.root')
+    raw_input("Press Enter to continue...")
 
 def read():
     import array
@@ -210,7 +213,7 @@ def read():
 
 
 if __name__ == '__main__':
-    # train()
-    trainMultiClass()
+    train()
+    # trainMultiClass()
     # read()
 
