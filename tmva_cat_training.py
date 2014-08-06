@@ -30,7 +30,7 @@ training_vars = [
     'Alt$(trackSip3dSig[4], -10.)'
     ]
 
-if mode == 'PseudoVertex':
+if mode in ['PseudoVertex', 'RecoVertex']:
     training_vars += [
     'trackEtaRel[0]',
     'trackEtaRel[1]',
@@ -38,7 +38,7 @@ if mode == 'PseudoVertex':
     'vertexNTracks', 
     'vertexEnergyRatio', 
     'trackSip2dSigAboveCharm',
-    'vertexJetDeltaR',
+    'vertexJetDeltaR'
     ]
 
 if mode == 'RecoVertex':
@@ -80,8 +80,8 @@ if mode == 'RecoVertex':
 
 
 def train():
-    signal_selection = 'flavour==5' # b
-    background_selection = 'flavour!=5' # no b
+    signal_selection = 'flavour==4' # b
+    background_selection = 'flavour!=4' # no b
 
     num_pass = tree.GetEntries(signal_selection)
     num_fail = tree.GetEntries(background_selection)
